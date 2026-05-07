@@ -1,0 +1,450 @@
+{
+  "_meta": {
+    "last_run": "2026-05-07 15:23:42",
+    "suites_run": "JOB"
+  },
+  "INV": {
+    "label": "Invoice Suite",
+    "run_at": "2026-05-07 15:23:41",
+    "results": [
+      {
+        "id": "INV-01",
+        "title": "Generate invoice -- happy path",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116138 statusId=5",
+          "Batch 116138 in GET /invoicing/batches: True"
+        ]
+      },
+      {
+        "id": "INV-02",
+        "title": "Generate invoice -- no billable items",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116139 totalInvoices=1",
+          "summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}"
+        ]
+      },
+      {
+        "id": "INV-03",
+        "title": "Invoice reflects correct tax rate",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116140 totalTax=0.0",
+          "summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}"
+        ]
+      },
+      {
+        "id": "INV-04",
+        "title": "Invoice includes all service types in billing period",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116141",
+          "criteria={'processingStartDate': None, 'processingEndDate': None, 'postingDate': '2025-12-31', 'billableItemUIds': ['f9d551d6-596d-4ff8-be4f-c5073a030563', '7c3f60d5-a0d1-4536-bffe-717fd06c4eb5'], 'billingCycles': None, 'billableItemTypes': [], 'customerIds': None, 'jobsiteIds': [80566, 80960], 'batchName': None, 'batchNotes': None, 'invoiceMessage': 'Thank you for your business!', 'minInvoiceAmount': 0}",
+          "summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}",
+          "billableItemTypes=[] totalInvoices=1"
+        ]
+      },
+      {
+        "id": "INV-05",
+        "title": "Invoice generation -- no timeout or error",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "elapsed=0.1s batchNumber=116142"
+        ]
+      },
+      {
+        "id": "INV-06",
+        "title": "Invoice displays customer name and address correctly",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116143 summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}",
+          "criteria customerIds=[] totalCustomers=1",
+          "GET /customers/1627/basic-info -> HTTP 404",
+          "Fallback: totalCustomers=1 failed=[]"
+        ]
+      },
+      {
+        "id": "INV-07",
+        "title": "Invoice line items show correct service dates",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116144",
+          "Processing period: 2026-04-07 -> 2026-05-07"
+        ]
+      },
+      {
+        "id": "INV-08",
+        "title": "Invoice totals match sum of line items",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116145 summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}",
+          "totalAmount=0.0 totalTax=0.0 totalInvoices=1"
+        ]
+      },
+      {
+        "id": "INV-09",
+        "title": "OC-5541 -- No duplicate date line on invoice",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116146 unique dates=2 suspicious={}"
+        ]
+      },
+      {
+        "id": "INV-10",
+        "title": "Mixed delivery scenario -- pre/post transition on same invoice",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116147 totalInvoices=1 summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}"
+        ]
+      },
+      {
+        "id": "INV-11",
+        "title": "OC-5769 -- Invoice PDF download endpoint works",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116148 PDF HTTP 200 size=271250"
+        ]
+      },
+      {
+        "id": "INV-12",
+        "title": "Invoice PDF -- content matches screen view",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116149 PDF HTTP 200"
+        ]
+      },
+      {
+        "id": "INV-13",
+        "title": "Invoice PDF -- renders correctly without layout issues",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116150 PDF HTTP 200 size=271250"
+        ]
+      },
+      {
+        "id": "INV-14",
+        "title": "Equipment usage -- single fee per asset per billing period",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116151 summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}",
+          "totalInvoices=1 totalJobsites=1"
+        ]
+      },
+      {
+        "id": "INV-15",
+        "title": "Equipment usage -- timeframe shown in small print",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116152 start=2026-04-07 end=2026-05-07 posting=2025-12-31",
+          "billableItemUIds count=2"
+        ]
+      },
+      {
+        "id": "INV-16",
+        "title": "Equipment usage -- fee breakdown in small print",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116153 summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}"
+        ]
+      },
+      {
+        "id": "INV-17",
+        "title": "Equipment usage -- pre-transition asset billed differently",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116154 summary={'totalCustomers': 1, 'totalJobsites': 1, 'totalInvoices': 1, 'totalAmount': 0.0, 'totalTax': 0.0, 'totalForPrint': 0, 'totalForEmail': 0}",
+          "generationTime=00:00:03.1037018"
+        ]
+      },
+      {
+        "id": "INV-18",
+        "title": "Credit memo applies correctly to invoice",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116155 totalAmount=0.0"
+        ]
+      },
+      {
+        "id": "INV-19",
+        "title": "Negative line item shows correctly",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116156 totalAmount=0.0"
+        ]
+      },
+      {
+        "id": "INV-20",
+        "title": "Invoice number is unique and sequential",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "Batch 1: 116157  Batch 2: 116158",
+          "All batch numbers: [116117, 116118, 116119, 116120, 116157, 116158]",
+          "Duplicates: {}"
+        ]
+      },
+      {
+        "id": "INV-21",
+        "title": "Invoice status -- Paid updates correctly",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "batchNumber=116159 statusName=InvoiceBatch_Committed",
+          "Statuses in sent batches: ['InvoiceBatch_Committed']"
+        ]
+      },
+      {
+        "id": "INV-22",
+        "title": "Invoice aging -- correct bucket assignment",
+        "passed": true,
+        "failures": [],
+        "evidence": [
+          "GET /invoicing/aging -> HTTP 404",
+          "Sent batches count: 10",
+          "Posting dates: ['2025-12-31', '2026-04-26', '0001-01-01', '0001-01-01', '0001-01-01']"
+        ]
+      }
+    ]
+  },
+  "JOB": {
+    "label": "Jobsite Suite",
+    "run_at": "2026-05-07 15:23:42",
+    "results": []
+  },
+  "VEN": {
+    "label": "Vendor Suite",
+    "run_at": "2026-05-07 15:03:08",
+    "results": []
+  },
+  "CUS": {
+    "label": "Customer Suite",
+    "run_at": "2026-05-07 15:03:09",
+    "results": []
+  },
+  "EQP": {
+    "label": "Equipment Suite",
+    "run_at": "2026-05-07 15:19:04",
+    "results": [
+      {
+        "id": "TC-01",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-02",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-03",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-04",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-05",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-06",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-07",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-08",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-09",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-10",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-11",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Locator.wait_for: Timeout 6000ms exceeded."
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-12",
+        "title": "OC-5808 -- New Freight button in Bulk Scheduler does nothing",
+        "passed": false,
+        "failures": [
+          "Could not navigate to Bulk Scheduler -- verify menu path"
+        ],
+        "evidence": [
+          "Bulk Scheduler not found in Fleet or Management menus"
+        ]
+      },
+      {
+        "id": "TC-13",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-14",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-15",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-16",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-17",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-18",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Generate Invoices',)"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-19",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Generate Invoices',)"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-20",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Generate Invoices',)"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-21",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      },
+      {
+        "id": "TC-22",
+        "title": "(crashed)",
+        "passed": false,
+        "failures": [
+          "Exception: Could not click nav item: ('Equipment Management', 'Equipment')"
+        ],
+        "evidence": []
+      }
+    ]
+  }
+}

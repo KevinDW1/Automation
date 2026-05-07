@@ -1,0 +1,120 @@
+======================================================================
+  WASTE APPLICATIONS -- QA VALIDATION REPORT
+  Generated: 2026-05-07 15:23:42
+======================================================================
+
+EXECUTIVE SUMMARY
+----------------------------------------------------------------------
+  Suite                      Total   Pass   Fail    Pct  Last Run
+  ------------------------- ------ ------ ------ ------  --------------------
+  Invoice Suite                 22     22      0   100%  2026-05-07 15:23:41
+  Jobsite Suite                  0      0      0    N/A  2026-05-07 15:23:42
+  Vendor Suite                   0      0      0    N/A  2026-05-07 15:03:08
+  Customer Suite                 0      0      0    N/A  2026-05-07 15:03:09
+  Equipment Suite               22      0     22     0%  2026-05-07 15:19:04
+  ------------------------- ------ ------ ------ ------
+  TOTAL                         44     22     22    50%
+
+
+======================================================================
+  INVOICE SUITE  --  22 PASS / 0 FAIL  --  2026-05-07 15:23:41
+======================================================================
+  ID         Result   Title
+  ---------- -------- ------------------------------------------------
+  INV-01     PASS     Generate invoice -- happy path
+  INV-02     PASS     Generate invoice -- no billable items
+  INV-03     PASS     Invoice reflects correct tax rate
+  INV-04     PASS     Invoice includes all service types in billing period
+  INV-05     PASS     Invoice generation -- no timeout or error
+  INV-06     PASS     Invoice displays customer name and address correctly
+  INV-07     PASS     Invoice line items show correct service dates
+  INV-08     PASS     Invoice totals match sum of line items
+  INV-09     PASS     OC-5541 -- No duplicate date line on invoice
+  INV-10     PASS     Mixed delivery scenario -- pre/post transition on same invoice
+  INV-11     PASS     OC-5769 -- Invoice PDF download endpoint works
+  INV-12     PASS     Invoice PDF -- content matches screen view
+  INV-13     PASS     Invoice PDF -- renders correctly without layout issues
+  INV-14     PASS     Equipment usage -- single fee per asset per billing period
+  INV-15     PASS     Equipment usage -- timeframe shown in small print
+  INV-16     PASS     Equipment usage -- fee breakdown in small print
+  INV-17     PASS     Equipment usage -- pre-transition asset billed differently
+  INV-18     PASS     Credit memo applies correctly to invoice
+  INV-19     PASS     Negative line item shows correctly
+  INV-20     PASS     Invoice number is unique and sequential
+  INV-21     PASS     Invoice status -- Paid updates correctly
+  INV-22     PASS     Invoice aging -- correct bucket assignment
+
+======================================================================
+  JOBSITE SUITE  --  0 PASS / 0 FAIL  --  2026-05-07 15:23:42
+======================================================================
+  ID         Result   Title
+  ---------- -------- ------------------------------------------------
+  (Pending -- suite not yet executed)
+
+======================================================================
+  VENDOR SUITE  --  0 PASS / 0 FAIL  --  2026-05-07 15:03:08
+======================================================================
+  ID         Result   Title
+  ---------- -------- ------------------------------------------------
+  (Pending -- suite not yet executed)
+
+======================================================================
+  CUSTOMER SUITE  --  0 PASS / 0 FAIL  --  2026-05-07 15:03:09
+======================================================================
+  ID         Result   Title
+  ---------- -------- ------------------------------------------------
+  (Pending -- suite not yet executed)
+
+======================================================================
+  EQUIPMENT SUITE  --  0 PASS / 22 FAIL  --  2026-05-07 15:19:04
+======================================================================
+  ID         Result   Title
+  ---------- -------- ------------------------------------------------
+  TC-01      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-02      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-03      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-04      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-05      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-06      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-07      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-08      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-09      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+  TC-10      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+  TC-11      FAIL     (crashed)
+                        * Exception: Locator.wait_for: Timeout 6000ms exceeded.
+  TC-12      FAIL     OC-5808 -- New Freight button in Bulk Scheduler does nothing
+                        * Could not navigate to Bulk Scheduler -- verify menu path
+  TC-13      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+  TC-14      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+  TC-15      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+  TC-16      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+  TC-17      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+  TC-18      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Generate Invoices',)
+  TC-19      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Generate Invoices',)
+  TC-20      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Generate Invoices',)
+  TC-21      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+  TC-22      FAIL     (crashed)
+                        * Exception: Could not click nav item: ('Equipment Management', 'Equipment')
+
+======================================================================
+  END OF REPORT
+======================================================================

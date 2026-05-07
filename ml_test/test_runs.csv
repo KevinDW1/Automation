@@ -1,0 +1,44 @@
+run_id,timestamp,test_name,test_class,test_type,field_under_test,scenario_tag,status,duration_ms,flake_count,error_message
+170c0c0f,2026-05-04T12:55:37Z,async_playwright,unknown,positive,other,other,passed,0,0,
+170c0c0f,2026-05-04T12:55:39Z,do_login,unknown,positive,submit,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:39Z,go_to_customers,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:39Z,check_grid_links,unknown,positive,link,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:40Z,open_new_customer,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:40Z,main,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:40Z,async_playwright,unknown,positive,other,other,passed,0,0,
+170c0c0f,2026-05-04T12:55:40Z,get_customer_id,unknown,positive,other,other,passed,1,0,
+170c0c0f,2026-05-04T12:55:40Z,do_login,unknown,positive,submit,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:40Z,go_to_jobsites,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:40Z,check_grid_links,unknown,positive,link,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:41Z,create_new_jobsite,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+170c0c0f,2026-05-04T12:55:41Z,main,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:06Z,async_playwright,unknown,positive,other,other,passed,0,0,
+6b805a26,2026-05-04T12:56:08Z,do_login,unknown,positive,submit,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:08Z,go_to_customers,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:08Z,check_grid_links,unknown,positive,link,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:08Z,open_new_customer,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:09Z,main,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:09Z,async_playwright,unknown,positive,other,other,passed,0,0,
+6b805a26,2026-05-04T12:56:09Z,get_customer_id,unknown,positive,other,other,passed,0,0,
+6b805a26,2026-05-04T12:56:09Z,do_login,unknown,positive,submit,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:09Z,go_to_jobsites,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:09Z,check_grid_links,unknown,positive,link,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:10Z,create_new_jobsite,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+6b805a26,2026-05-04T12:56:10Z,main,unknown,positive,other,other,failed,0,0,async def functions are not natively supported.
+fb0bd6e2,2026-05-04T12:59:01Z,main,unknown,positive,other,other,passed,52319,0,
+fb0bd6e2,2026-05-04T12:59:26Z,main,unknown,positive,other,other,error,24913,0,"TargetClosedError: Page.wait_for_timeout: Target page, context or browser has been closed"
+fa111d35,2026-05-04T13:01:53Z,main,unknown,positive,other,other,error,40462,0,TimeoutError: Locator.wait_for: Timeout 20000ms exceeded.
+fa111d35,2026-05-04T13:03:08Z,main,unknown,positive,other,other,passed,75172,0,
+9f12a60e,2026-05-04T13:07:20Z,main,unknown,positive,other,other,error,32019,0,TimeoutError: Timeout 20000ms exceeded.
+9f12a60e,2026-05-04T13:08:36Z,main,unknown,positive,other,other,error,75681,0,"TargetClosedError: Page.wait_for_timeout: Target page, context or browser has been closed"
+d2db8eb9,2026-05-04T13:12:36Z,main,unknown,positive,other,other,error,48675,0,"TargetClosedError: Page.wait_for_timeout: Target page, context or browser has been closed"
+d2db8eb9,2026-05-04T13:12:40Z,main,unknown,positive,other,other,error,3345,0,"TargetClosedError: Page.wait_for_timeout: Target page, context or browser has been closed"
+1281a133,2026-05-04T13:24:30Z,main,unknown,positive,other,other,passed,51901,0,
+1281a133,2026-05-04T13:24:49Z,main,unknown,positive,other,other,error,18442,0,"TargetClosedError: Page.wait_for_timeout: Target page, context or browser has been closed"
+7403ed02,2026-05-04T13:26:59Z,main,unknown,positive,other,other,passed,49470,0,
+7403ed02,2026-05-04T13:28:14Z,main,unknown,positive,other,other,passed,74550,0,
+398a3293,2026-05-04T13:35:08Z,main,unknown,positive,other,other,passed,53572,0,
+398a3293,2026-05-04T13:35:12Z,main,unknown,positive,other,other,error,3619,0,"TargetClosedError: Page.wait_for_timeout: Target page, context or browser has been closed"
+398a3293,2026-05-04T13:35:15Z,main,unknown,positive,other,other,error,3046,0,"TargetClosedError: Page.wait_for_timeout: Target page, context or browser has been closed"
+ad74a45a,2026-05-04T13:38:06Z,main,unknown,positive,other,other,passed,59530,0,
+ad74a45a,2026-05-04T13:39:24Z,main,unknown,positive,other,other,passed,77317,0,

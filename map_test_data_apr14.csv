@@ -1,0 +1,58 @@
+A	Name	Address	Notes	Used For
+16282	Global Retail Partners LLC	71 Adventure Trl, Jefferson GA 30549	Green pill on Jobsite Card - confirmed in OC-5760 testing	Partnership Status Color
+16280	Pedal Valves INC	258 Marlowe Dr, Mills River NC 28759	Green pill on Jobsite Card	Partnership Status Color
+16279	United Rentals - Branch K46	3700 Victory Drive, Columbus GA 31903	Green pill on Jobsite Card	Partnership Status Color
+16278	Bojangles of WNC LLC	131 Glenn Bridge Rd, Arden NC 28704	Grey pill on Jobsite Card - confirmed in OC-5760 testing. Also use for Nationwide search testing	Partnership Status / Nationwide Search
+16276	Climate Pros		No Partnership status customer per OC-5783 test notes	Customer Filter - No Partnership
+16228	DF Floor Covering		No Partnership status customer per OC-5783 test notes	Customer Filter - No Partnership
+16224		No Partnership status customer per OC-5783 test notes	Customer Filter - No Partnership
+16216	Southern State Services		No Partnership status customer per OC-5783 test notes	Customer Filter - No Partnership
+16215	Warren Construction Services LLC	71 Adventure Trl, Jefferson GA 30549	Has 3 active jobsites: Bagel Hole / Firehouse Subs / Paris Baguette. Used for Jobsite Card testing	Customer Card / Jobsite Cards
+16213	MID AMERICA STORE FIXTURES	3700 Victory Drive, Columbus GA 31903	Jobsite 10420-15 with green partnership pill. Used for OC-5760 validation	Partnership Pill on Jobsite Card
+16199	-86.783502		Nashville TN area. Used for OC-5304 Display option testing - returned 16 Customers / 36 Jobsites / 60 Vendors	Display Filter / Lat-Long Search
+16171	Bojangles #682	1507 Smokey Park Hwy, Candler NC 28715	Jobsite 16119-10. Grey/neutral pill confirming No Partnership status	Nationwide Search / Partnership Pill
+16170	Warren Construction Services LLC	71 Adventure Trl, Jefferson GA 30549	Has 3 confirmed jobsites: 15823-11 The Bagel Hole / 15823-12 Firehouse Subs / 15823-13 Paris Baguette. Use to test multi-jobsite pin clustering and Show Jobsites toggle	Multi-Jobsite / Show Jobsites Toggle / OC-5610
+16164	Bojangles of WNC LLC	131 Glenn Bridge Rd, Arden NC 28704	16 confirmed jobsites in QA. Use for Nationwide search to see pins spread across multiple locations. Good for cluster pin testing	Multi-Jobsite / Nationwide / OC-5796
+16140	Global Retail Partners LLC	71 Adventure Trl, Jefferson GA 30549	Multiple jobsites confirmed including 10420-15 MID AMERICA STORE FIXTURES. Use to test customer jobsite display on map	Multi-Jobsite / Jobsite Card / OC-5758
+16135	JFL Environmental	1182 Foster Rd, Statham GA 30666	Shows Vendor Contact pill. Contact: Jeff Lipscomb - 470-974-2261 / Jeff@jflenv.com. 1 Yard Location. OC-5764 Scenario 3 validated	Yard Card Contact / OC-5764 / OC-5762
+16134	Booth Storage Trailers Inc	PO Box 7725, Columbus GA 31908	Shows Vendor Contact pill. Contact: Rob Edwards - 706-438-7008 / rob@boothtrailers.com. 1 Yard Location. Storage Containers service	Yard Card Contact / OC-5764 / OC-5762
+16133	Vendor 13584		Used in OC-5610 Nationwide search testing. Has secondary locations. Use for Show Secondary Locations toggle testing	Nationwide Search / Show Secondary Locations / OC-5610
+16120	Arkansas Portable Toilets Little Rock	PO Box 306689, Nashville TN 37230	First result in Nationwide search using Lat/Long 36.15828 / -86.783502	Nationwide Search Results
+	JFL Environmental	1182 Foster Rd, Statham GA 30666	Shows 1 Yard Location on Vendor Card. Use to test single yard display and Vendor Contact fallback behavior	Multi-Yard Vendor / Yard Card
+	Booth Storage Trailers Inc	PO Box 7725, Columbus GA 31908	Shows 1 Yard Location on Vendor Card. Confirmed via screenshot testing	Multi-Yard Vendor / Yard Card
+	JFL Environmental		0 Yard Locations shown on card despite having an address. Use to test No Deliveries + 0 Yard Locations edge case	Edge Case / Yard Card
+	The Bagel Hole	5475 Old Winder Hwy Ste F, Braselton GA 30517	Jobsite Contact: Brian (770-380-0641). 2 assets onsite: Rolloff C&D / Toilets Standard. Billable. Tax 9%. Used for Jobsite Card testing OC-5758	Jobsite Card / Customer Pill / OC-5758
+	Firehouse Subs		Active jobsite under Warren Construction	Customer Card Jobsite List
+	Paris Baguette		Active jobsite under Warren Construction	Customer Card Jobsite List
+	MID AMERICA STORE FIXTURES	3700 Victory Drive, Columbus GA 31903	Jobsite Contact: GREG (614-582-8530). 1 Asset: Front Load MSW. Green customer pill (Global Retail Partners). Billable. Tax 9%.	Jobsite Card / Partnership Pill / OC-5760
+	Bojangles #682	1507 Smokey Park Hwy, Candler NC 28715	Jobsite Contact: David (336-580-8944). 3 Assets: Rolloff C&D / Toilets Standard / Storage Containers Standard. Grey pill (No Partnership). On Hold.	Partnership Pill - No Status / OC-5760
+	Asheville 2	258 Marlowe Dr, Mills River NC 28759	Pedal Valves INC customer. Green pill. Jobsite Contact: Candace (870-627-2907). 1 Asset: Rolloff C&D.	Partnership Pill / OC-5760
+	Freudenberg	1301 Sand Hill Rd, Candler NC 28715	Jobsite Contact: Noah (704-901-4037). United Rentals customer. Green pill. 1 Asset: Rolloff C&D.	Partnership Pill / OC-5760
+	All Selected		Default state. Confirmed 16 Customers / 36 Jobsites / 60 Vendors with Lat/Long search. All pin types visible	OC-5304 Display Filter
+	Customers		Switch Display to Customers - only customer pins (building icons) should show on map and in results panel	OC-5304 Display Filter
+	Jobsites		Switch Display to Jobsites - only dark blue square jobsite pins should show	OC-5304 Display Filter
+	Vendors		Switch Display to Vendors - only green truck vendor pins should show	OC-5304 Display Filter
+	No Partnership Customers		Select No Partnership only. Expect grey-pinned customers. Use Bojangles / Climate Pros / DF Floor Covering	OC-5783
+	Active + No Partnership		Both green and grey pins should appear. No other types	OC-5783
+	Active + Inactive + At Risk + Out of Business + Terminated + No Partnership		All 6 selected simultaneously. No UI errors. All show as selected in dropdown	OC-5783
+	Jobsite Date Filter		Check date picker label in More Filters under Jobsites. Confirm correct label	OC-5698
+	Green Pin		Green colored customer pin. Seen on 10420 Global Retail Partners / 10295 Pedal Valves / 14534 United Rentals	Pin Legend / OC-5783
+	Grey / Neutral Pin		Grey or neutral colored customer pin. Seen on 16119 Bojangles of WNC LLC	Pin Legend / OC-5783 / OC-5760
+	Orange Pin		Orange colored customer pin. Verify in Legend and confirm pin matches filter selection	Pin Legend / OC-5783
+	Grey Dark Pin		Darker grey customer pin. Verify in Legend	Pin Legend / OC-5783
+	Red Pin		Red colored customer pin. Verify in Legend	Pin Legend / OC-5783
+	Purple Pin		Purple colored customer pin. Verify in Legend	Pin Legend / OC-5783
+	Dark Navy Blue Square		Square dark blue pin with location icon. Used for all jobsite locations	Map Pin Identification
+	Green Truck Icon		Green truck icon pin. Used for all vendor yard locations	Map Pin Identification
+	Different Color Truck Icon		Preferred/franchised vendor pin should look visually distinct from standard vendor pin. Check legend	Pin Legend / OC-5628
+	Red Circle Pin		Red circular pin marking the searched address or lat/long center point	Map Pin Identification
+	Numbered Blue Circle	e.g. shows "2" or "40" when multiple pins overlap	Number shown when multiple pins are close together. Tap to expand	Cluster Pin / Map Zoom
+	4654 Beacon Ridge Ln, Flowery Branch GA 30542		Used in initial Map testing. Returned jobsite results	Address Search
+	36.15828 / -86.783502		Nashville TN area. 112 results - 16 Customers / 36 Jobsites / 60 Vendors	OC-5304 / Lat-Long Search
+	Warren Construction Services LLC		Returned 20 vendor results in 30mi radius	Name/ID Search
+	Bojangles of WNC LLC	131 Glenn Bridge Rd, Arden NC 28704	No Partnership Status. 16 jobsites in results	No Partnership / Jobsite Search
+	Bojangles of WNC LLC		Should zoom to full US view on apply. Confirmed 16 jobsites across country	OC-5796 / Nationwide Zoom
+	Vendor 13584		Used in OC-5610 for secondary locations testing	OC-5610 / Nationwide / Secondary Locations
+	Nashville TN		Use to test City/State search mode and confirm map centers on correct location	OC-5755 / City-State Search
+
+

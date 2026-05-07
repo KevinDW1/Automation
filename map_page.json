@@ -1,0 +1,34 @@
+{
+  "pageName": "MapDashboard",
+  "locators": {
+    "navigation": {
+      "management": "role=link[name='Management']",
+      "accounting": "role=link[name='Accounting']",
+      "map": "role=link[name='Map']",
+      "administration": "role=link[name='Administration']"
+    },
+    "filters": {
+      "addressSearch": "#map-search-autocomplete",
+      "localRadio": "label:has-text('Local')",
+      "nationwideRadio": "xpath=/html/body/main/div[2]/oc-cjv-map/div/div/div/div[1]/form/div[1]/div[2]/label",
+      "displayAllSelected": "xpath=/html/body/main/div[2]/oc-cjv-map/div/div/div/div[1]/form/div[2]/div[2]/div[2]",
+      "showSecondaryLocations": "xpath=/html/body/main/div[2]/oc-cjv-map/div/div/div/div[1]/form/div[2]/div[2]/label/span[1]",
+      "radiusSelect": ".radius-select",
+      "applyBtn": "button:has-text('APPLY')",
+      "clearBtn": "text='CLEAR'"
+    },
+    "sidebar": {
+      "resultsTabAll": "role=tab[name='All']",
+      "resultsTabCustomers": "role=tab[name='Customers']",
+      "innerSearch": "input[placeholder='Search Results']",
+      "emptyStateText": "text='Nothing to display'"
+    },
+    "mapControls": {
+      "roadView": "button:has-text('Road')",
+      "satelliteView": "button:has-text('Satellite')",
+      "nightView": "button:has-text('Night')",
+      "zoomIn": "[aria-label='Zoom in']",
+      "trafficToggle": "label:has-text('Show Traffic')"
+    }
+  }
+}
