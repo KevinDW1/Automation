@@ -30,7 +30,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install pytest pytest-asyncio playwright requests faker
+          pip install pytest pytest-asyncio pytest-playwright playwright requests faker
 
       - name: Install Playwright browsers
         run: |
