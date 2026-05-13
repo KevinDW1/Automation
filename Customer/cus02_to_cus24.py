@@ -23,105 +23,122 @@ from cus_base import (
 
 @pytest.fixture(scope="module")
 def shared_page():
-    from playwright.sync_api import sync_playwright
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = context.new_page()
-        asyncio.run(do_login(page))
-        yield page
-        context.close()
-        browser.close()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    async def _setup():
+        from playwright.async_api import async_playwright
+        pw = await async_playwright().start()
+        browser = await pw.chromium.launch(headless=True)
+        context = await browser.new_context(viewport={"width": 1920, "height": 1080})
+        page = await context.new_page()
+        await do_login(page)
+        return pw, browser, context, page
+
+    pw, browser, context, page = loop.run_until_complete(_setup())
+    yield page
+
+    async def _teardown():
+        await context.close()
+        await browser.close()
+        await pw.stop()
+
+    loop.run_until_complete(_teardown())
+    loop.close()
 
 
 # ── pytest test functions ─────────────────────────────────────────────────────
 
+def _run(coro):
+    loop = asyncio.get_event_loop()
+    return loop.run_until_complete(coro)
+
 def test_cus02(shared_page):
-    r = asyncio.run(cus02(shared_page))
+    r = _run(cus02(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus03(shared_page):
-    r = asyncio.run(cus03(shared_page))
+    r = _run(cus03(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus04(shared_page):
-    r = asyncio.run(cus04(shared_page))
+    r = _run(cus04(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus05(shared_page):
-    r = asyncio.run(cus05(shared_page))
+    r = _run(cus05(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus06(shared_page):
-    r = asyncio.run(cus06(shared_page))
+    r = _run(cus06(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus07(shared_page):
-    r = asyncio.run(cus07(shared_page))
+    r = _run(cus07(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus08(shared_page):
-    r = asyncio.run(cus08(shared_page))
+    r = _run(cus08(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus09(shared_page):
-    r = asyncio.run(cus09(shared_page))
+    r = _run(cus09(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus10(shared_page):
-    r = asyncio.run(cus10(shared_page))
+    r = _run(cus10(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus11(shared_page):
-    r = asyncio.run(cus11(shared_page))
+    r = _run(cus11(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus12(shared_page):
-    r = asyncio.run(cus12(shared_page))
+    r = _run(cus12(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus13(shared_page):
-    r = asyncio.run(cus13(shared_page))
+    r = _run(cus13(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus14(shared_page):
-    r = asyncio.run(cus14(shared_page))
+    r = _run(cus14(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus15(shared_page):
-    r = asyncio.run(cus15(shared_page))
+    r = _run(cus15(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus17(shared_page):
-    r = asyncio.run(cus17(shared_page))
+    r = _run(cus17(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus18(shared_page):
-    r = asyncio.run(cus18(shared_page))
+    r = _run(cus18(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus19(shared_page):
-    r = asyncio.run(cus19(shared_page))
+    r = _run(cus19(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus20(shared_page):
-    r = asyncio.run(cus20(shared_page))
+    r = _run(cus20(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus21(shared_page):
-    r = asyncio.run(cus21(shared_page))
+    r = _run(cus21(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus22(shared_page):
-    r = asyncio.run(cus22(shared_page))
+    r = _run(cus22(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus23(shared_page):
-    r = asyncio.run(cus23(shared_page))
+    r = _run(cus23(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 def test_cus24(shared_page):
-    r = asyncio.run(cus24(shared_page))
+    r = _run(cus24(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)
 
 
