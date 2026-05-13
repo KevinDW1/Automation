@@ -13,13 +13,11 @@ jobs:
     timeout-minutes: 30
 
     env:
-      # These come from GitHub Secrets — see setup instructions below
       NETLIFY_TOKEN:   ${{ secrets.NETLIFY_TOKEN }}
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-      # Your app credentials — add these as secrets too
       APP_USERNAME:    ${{ secrets.APP_USERNAME }}
       APP_PASSWORD:    ${{ secrets.APP_PASSWORD }}
+      PLAYWRIGHT_HEADLESS: "1"
 
     steps:
       - name: Checkout code
@@ -40,7 +38,7 @@ jobs:
 
       - name: Run Smoke Tests
         run: |
-          pytest --tb=short -v
+          pytest --tb=short -v --ignore=Invoice/test_api.txt
 
       - name: Upload test results (on failure)
         if: failure()
