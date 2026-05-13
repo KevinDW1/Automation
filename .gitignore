@@ -9,3 +9,6 @@ config.yaml
 **/*.webm
 .idea/
 ~$*
+
+# Local Netlify folder
+.netlify
