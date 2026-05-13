@@ -840,7 +840,7 @@ async def main() -> None:
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
-            headless=False,
+            headless=True,
             args=["--start-maximized"],
         )
         context = await browser.new_context(

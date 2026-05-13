@@ -951,7 +951,7 @@ async def run(test_ids: list[str]) -> None:
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
-            headless=False, args=["--start-maximized"]
+            headless=True
         )
         context = await browser.new_context(
             viewport={"width": 1920, "height": 1080},

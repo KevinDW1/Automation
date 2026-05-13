@@ -406,7 +406,7 @@ async def main():
     print(f"  Phone   : {data['phone']}")
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False, args=["--start-maximized"])
+        browser = await p.chromium.launch(headless=True)
         context = await browser.new_context(
             viewport={"width": 1920, "height": 1080},
             record_video_dir="../videos/",

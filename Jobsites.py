@@ -790,7 +790,7 @@ def run(page: Page) -> RunReport:
 def main() -> None:
     with sync_playwright() as p:
         browser = p.chromium.launch(
-            headless=False,
+            headless=True,
             args=["--start-maximized"],
         )
         context = browser.new_context(

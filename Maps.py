@@ -335,7 +335,7 @@
 # def main():
 #     with sync_playwright() as p:
 #         browser = p.chromium.launch(
-#             headless=False,
+#             headless=True,
 #             args=["--start-maximized"]
 #         )
 #         context = browser.new_context(viewport=None)
@@ -713,7 +713,7 @@ def search_address(page: Page, address: str) -> dict:
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(
-            headless=False,
+            headless=True,
             args=["--start-maximized"]
         )
         context = browser.new_context(
