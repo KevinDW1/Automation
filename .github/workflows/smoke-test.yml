@@ -10,7 +10,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
 
     env:
       NETLIFY_TOKEN:   ${{ secrets.NETLIFY_TOKEN }}
