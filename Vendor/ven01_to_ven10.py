@@ -2,12 +2,9 @@
 ven01_to_ven10.py
 ─────────────────
 Vendor QA Suite — VEN-01 through VEN-10
-Based on the Vendors grid (Management > Vendors): 6,339 entries,
-columns: Vendor Id, Vendor, Status, Address, City, State, Zip Code,
-         Phone Number, EIN.
-
 Run all:    python ven01_to_ven10.py
 Run single: python ven01_to_ven10.py VEN-05
+Run via pytest: pytest Vendor/ven01_to_ven10.py -v
 """
 
 from __future__ import annotations
@@ -17,6 +14,7 @@ import re
 import sys
 from datetime import datetime
 
+import pytest
 from playwright.async_api import Page, async_playwright
 
 from job_ven_base import (
@@ -29,17 +27,86 @@ from job_ven_base import (
     get_text_blocks, grid_row_count, grid_rows_text,
 )
 
+
+# ── pytest fixtures ───────────────────────────────────────────────────────────
+
+@pytest.fixture(scope="module")
+def shared_page():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    async def _setup():
+        pw = await async_playwright().start()
+        browser = await pw.chromium.launch(headless=True)
+        context = await browser.new_context(viewport={"width": 1920, "height": 1080})
+        page = await context.new_page()
+        await do_login(page)
+        return pw, browser, context, page
+
+    pw, browser, context, page = loop.run_until_complete(_setup())
+    yield page
+
+    async def _teardown():
+        await context.close()
+        await browser.close()
+        await pw.stop()
+
+    loop.run_until_complete(_teardown())
+    loop.close()
+
+
+# ── pytest test functions ─────────────────────────────────────────────────────
+
+def _run(coro):
+    loop = asyncio.get_event_loop()
+    return loop.run_until_complete(coro)
+
+def test_ven01(shared_page):
+    r = _run(ven01(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven02(shared_page):
+    r = _run(ven02(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven03(shared_page):
+    r = _run(ven03(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven04(shared_page):
+    r = _run(ven04(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven05(shared_page):
+    r = _run(ven05(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven06(shared_page):
+    r = _run(ven06(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven07(shared_page):
+    r = _run(ven07(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven08(shared_page):
+    r = _run(ven08(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven09(shared_page):
+    r = _run(ven09(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+def test_ven10(shared_page):
+    r = _run(ven10(shared_page))
+    assert r.passed, "\n".join(r.failure_reasons)
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # VEN-01 — Create new vendor — happy path
 # ══════════════════════════════════════════════════════════════════════════════
 
 async def ven01(page: Page) -> TestResult:
-    """
-    Steps   : 1. Click NEW VENDOR.
-              2. Fill all required fields (name, address, phone, EIN).
-              3. Save.
-    Expected: Vendor created and appears in grid.
-    """
     r = TestResult("VEN-01", "Create new vendor — happy path")
     data = new_vendor()
 
@@ -65,7 +132,6 @@ async def ven01(page: Page) -> TestResult:
             break
     await page.wait_for_timeout(3_000)
     await wait_spinners(page)
-    await page.screenshot(path="ven01_result.png")
 
     blocks = await get_text_blocks(page)
     created = any(
@@ -76,7 +142,7 @@ async def ven01(page: Page) -> TestResult:
         r.ok(f"Vendor '{data['name']}' created successfully")
         r.passed = True
     else:
-        r.fail("Vendor creation unclear — check ven01_result.png")
+        r.fail("Vendor creation unclear — check screenshot")
     return r
 
 
@@ -91,7 +157,6 @@ async def ven02(page: Page) -> TestResult:
     await nav_to_vendors(page)
     await click_new_button(page, "NEW VENDOR")
 
-    # Fill everything EXCEPT name
     try:
         await fill_dropdown(page, "Address *",      data["street"], "Street")
         await fill_label(page,    "City *",         data["city"],   "City")
@@ -107,7 +172,6 @@ async def ven02(page: Page) -> TestResult:
             await btn.click(force=True)
             break
     await page.wait_for_timeout(1_500)
-    await page.screenshot(path="ven02_result.png")
 
     blocks = await get_text_blocks(page)
     has_error = any(
@@ -146,7 +210,6 @@ async def ven03(page: Page) -> TestResult:
         r.log(f"Name field error: {e}")
 
     await click_save(page)
-    await page.screenshot(path="ven03_result.png")
 
     blocks = await get_text_blocks(page)
     if any(new_name.lower() in b.lower() for b in blocks):
@@ -177,7 +240,6 @@ async def ven04(page: Page) -> TestResult:
         r.log(f"Address field partial: {e}")
 
     await click_save(page)
-    await page.screenshot(path="ven04_result.png")
 
     blocks = await get_text_blocks(page)
     city_ok = any(new_city.lower() in b.lower() for b in blocks)
@@ -206,7 +268,6 @@ async def ven05(page: Page) -> TestResult:
         await fill_dropdown(page, "Status", "Active", "Status")
     except Exception as e:
         r.log(f"Status dropdown error: {e}")
-        # JS fallback
         await page.evaluate(
             """() => {
                 for (const el of document.querySelectorAll('*')) {
@@ -221,7 +282,6 @@ async def ven05(page: Page) -> TestResult:
             await opt.click()
 
     await click_save(page)
-    await page.screenshot(path="ven05_result.png")
 
     blocks = await get_text_blocks(page)
     if any(re.search(r"\bactive\b", b, re.I) for b in blocks):
@@ -241,7 +301,6 @@ async def ven06(page: Page) -> TestResult:
 
     await nav_to_vendors(page)
     await search_grid(page, KNOWN_VENDOR["name"])
-    await page.screenshot(path="ven06_result.png")
 
     rows = await grid_rows_text(page)
     r.log(f"Rows after name search: {rows[:3]}")
@@ -264,7 +323,6 @@ async def ven07(page: Page) -> TestResult:
 
     await nav_to_vendors(page)
     await search_grid(page, KNOWN_VENDOR["id"])
-    await page.screenshot(path="ven07_result.png")
 
     rows = await grid_rows_text(page)
     r.log(f"Rows after ID search: {rows[:3]}")
@@ -322,7 +380,6 @@ async def ven09(page: Page) -> TestResult:
     rows_default = await grid_row_count(page)
     r.log(f"Default rows: {rows_default}")
 
-    # Try Syncfusion pager dropdown
     changed = False
     pager = page.locator(
         ".e-pagerdropdown, select[aria-label*='page size' i]"
@@ -362,7 +419,6 @@ async def ven09(page: Page) -> TestResult:
     await page.wait_for_timeout(800)
     rows_after = await grid_row_count(page)
     r.log(f"Rows after Show 50: {rows_after}")
-    await page.screenshot(path="ven09_result.png")
 
     if rows_after > rows_default or rows_after >= 20:
         r.ok(f"Show dropdown changed rows: {rows_default} → {rows_after}")
@@ -377,18 +433,10 @@ async def ven09(page: Page) -> TestResult:
 # ══════════════════════════════════════════════════════════════════════════════
 
 async def ven10(page: Page) -> TestResult:
-    """
-    Steps   : 1. Open a known vendor record.
-              2. Verify EIN field is visible in the grid and/or detail page.
-              3. Verify EIN format is XX-XXXXXXX (valid EIN pattern).
-    Expected: EIN displayed in correct format.
-    """
     r = TestResult("VEN-10", "Vendor EIN field displays correctly")
 
     await nav_to_vendors(page)
-    await page.screenshot(path="ven10_grid.png")
 
-    # Check EIN column in grid headers
     headers = await page.evaluate(
         """() => Array.from(
             document.querySelectorAll('.e-gridheader th,.e-headercell')
@@ -397,15 +445,12 @@ async def ven10(page: Page) -> TestResult:
     r.log(f"Grid headers: {headers}")
     ein_col = any(re.search(r"\bein\b", h, re.I) for h in headers)
 
-    # Check EIN values in rows
     rows = await grid_rows_text(page)
     ein_pattern = re.compile(r"\b\d{2}-\d{7}\b")
     ein_in_rows = any(ein_pattern.search(row) for row in rows)
     r.log(f"EIN column in headers: {ein_col} | EIN format in rows: {ein_in_rows}")
 
-    # Open a vendor record for detail check
     await open_record_by_id(page, KNOWN_VENDOR["id"])
-    await page.screenshot(path="ven10_detail.png")
 
     blocks = await get_text_blocks(page)
     ein_in_detail = any(
@@ -443,8 +488,6 @@ async def run_tests(test_ids: list[str]) -> None:
         browser = await p.chromium.launch(headless=True)
         context = await browser.new_context(
             viewport={"width": 1920, "height": 1080},
-            record_video_dir="videos/",
-            record_video_size={"width": 1920, "height": 1080},
         )
         page = await context.new_page()
         await do_login(page)
@@ -460,15 +503,10 @@ async def run_tests(test_ids: list[str]) -> None:
             except Exception as exc:
                 result = TestResult(tid, "(crashed)")
                 result.fail(f"Exception: {exc}")
-                try:
-                    await page.screenshot(path=f"{tid.lower()}_crash.png")
-                except Exception:
-                    pass
                 print(f"  ❌ {tid} crashed: {exc}")
             results.append(result)
             result.print_report()
 
-        await page.wait_for_timeout(2_000)
         await context.close()
         await browser.close()
 
@@ -476,13 +514,9 @@ async def run_tests(test_ids: list[str]) -> None:
     failed = [r for r in results if not r.passed]
     print(f"\n{'═'*65}\n  VENDOR SUITE SUMMARY\n{'─'*65}")
     print(f"  Total {len(results)} | ✅ {len(passed)} | ❌ {len(failed)}")
-    print("─" * 65)
     for r in results:
         icon = "✅" if r.passed else "❌"
         print(f"  {icon}  {r.test_id:8}  {r.title}")
-        if not r.passed:
-            for reason in r.failure_reasons:
-                print(f"            • {reason}")
     print("═" * 65)
 
 
