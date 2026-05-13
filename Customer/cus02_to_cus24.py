@@ -22,18 +22,20 @@ from cus_base import (
 # ── pytest fixtures ───────────────────────────────────────────────────────────
 
 @pytest.fixture(scope="module")
-def event_loop_policy():
-    return asyncio.DefaultEventLoopPolicy()
+def event_loop():
+    loop = asyncio.new_event_loop()
+    yield loop
+    loop.close()
 
 @pytest.fixture(scope="module")
-def shared_page(playwright):
-    browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context(viewport={"width": 1920, "height": 1080})
-    page = context.new_page()
-    asyncio.get_event_loop().run_until_complete(do_login(page))
+async def shared_page(playwright):
+    browser = await playwright.chromium.launch(headless=True)
+    context = await browser.new_context(viewport={"width": 1920, "height": 1080})
+    page = await context.new_page()
+    await do_login(page)
     yield page
-    context.close()
-    browser.close()
+    await context.close()
+    await browser.close()
 
 
 # ── pytest test functions ─────────────────────────────────────────────────────
