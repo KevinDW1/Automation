@@ -30,7 +30,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install pytest pytest-asyncio playwright requests
+          pip install pytest pytest-asyncio playwright requests faker
 
       - name: Install Playwright browsers
         run: |
@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Smoke Tests
         run: |
-          pytest --tb=short -v --ignore=Invoice/test_api.txt
+          pytest --tb=short -v
 
       - name: Upload test results (on failure)
         if: failure()
