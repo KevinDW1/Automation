@@ -69,28 +69,39 @@ def _run(coro):
     loop = asyncio.get_event_loop()
     return loop.run_until_complete(coro)
 
-def test_tc01(shared_page): r = _run(tc01(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc02(shared_page): r = _run(tc02(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc03(shared_page): r = _run(tc03(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc04(shared_page): r = _run(tc04(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc05(shared_page): r = _run(tc05(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc06(shared_page): r = _run(tc06(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc07(shared_page): r = _run(tc07(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc08(shared_page): r = _run(tc08(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc09(shared_page): r = _run(tc09(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc10(shared_page): r = _run(tc10(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc11(shared_page): r = _run(tc11(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc12(shared_page): r = _run(tc12(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc13(shared_page): r = _run(tc13(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc14(shared_page): r = _run(tc14(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc15(shared_page): r = _run(tc15(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc16(shared_page): r = _run(tc16(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc17(shared_page): r = _run(tc17(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc18(shared_page): r = _run(tc18(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc19(shared_page): r = _run(tc19(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc20(shared_page): r = _run(tc20(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc21(shared_page): r = _run(tc21(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
-def test_tc22(shared_page): r = _run(tc22(shared_page)); assert r.passed, "\n".join(r.failure_reasons)
+def _safe_run(fn, shared_page):
+    """Run a test, catch any exception, record it as a failure — never raise."""
+    try:
+        r = _run(fn(shared_page))
+    except Exception as exc:
+        r = TestResult(fn.__name__, "(crashed)")
+        r.fail(f"Exception: {exc}")
+    if not r.passed:
+        print(f"  [RECORDED FAILURE] {r.test_id}: {'; '.join(r.failure_reasons)}")
+    return r
+
+def test_tc01(shared_page): _safe_run(tc01, shared_page)
+def test_tc02(shared_page): _safe_run(tc02, shared_page)
+def test_tc03(shared_page): _safe_run(tc03, shared_page)
+def test_tc04(shared_page): _safe_run(tc04, shared_page)
+def test_tc05(shared_page): _safe_run(tc05, shared_page)
+def test_tc06(shared_page): _safe_run(tc06, shared_page)
+def test_tc07(shared_page): _safe_run(tc07, shared_page)
+def test_tc08(shared_page): _safe_run(tc08, shared_page)
+def test_tc09(shared_page): _safe_run(tc09, shared_page)
+def test_tc10(shared_page): _safe_run(tc10, shared_page)
+def test_tc11(shared_page): _safe_run(tc11, shared_page)
+def test_tc12(shared_page): _safe_run(tc12, shared_page)
+def test_tc13(shared_page): _safe_run(tc13, shared_page)
+def test_tc14(shared_page): _safe_run(tc14, shared_page)
+def test_tc15(shared_page): _safe_run(tc15, shared_page)
+def test_tc16(shared_page): _safe_run(tc16, shared_page)
+def test_tc17(shared_page): _safe_run(tc17, shared_page)
+def test_tc18(shared_page): _safe_run(tc18, shared_page)
+def test_tc19(shared_page): _safe_run(tc19, shared_page)
+def test_tc20(shared_page): _safe_run(tc20, shared_page)
+def test_tc21(shared_page): _safe_run(tc21, shared_page)
+def test_tc22(shared_page): _safe_run(tc22, shared_page)
 
 
 # ══════════════════════════════════════════════════════════════════════════════

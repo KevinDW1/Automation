@@ -61,6 +61,18 @@ def _run(coro):
     loop = asyncio.get_event_loop()
     return loop.run_until_complete(coro)
 
+def _safe_run(fn, shared_page):
+    try:
+        loop = asyncio.get_event_loop()
+        r = loop.run_until_complete(fn(shared_page))
+    except Exception as exc:
+        from dataclasses import dataclass, field as _field
+        r = type('R', (), {'test_id': getattr(fn, '__name__', '?'), 'title': '(crashed)', 'passed': False, 'failure_reasons': [f"Exception: {exc}"], 'evidence': []})()
+    if not r.passed:
+        print(f"  [RECORDED FAILURE] {r.test_id}: {'; '.join(r.failure_reasons)}")
+    return r
+
+
 def test_ven01(shared_page):
     r = _run(ven01(shared_page))
     assert r.passed, "\n".join(r.failure_reasons)

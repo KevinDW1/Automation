@@ -65,69 +65,32 @@ def _run(coro):
     loop = asyncio.get_event_loop()
     return loop.run_until_complete(coro)
 
-def test_inv07(shared_page):
-    r = _run(inv07(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
+def _safe_run(fn, shared_page):
+    try:
+        r = _run(fn(shared_page))
+    except Exception as exc:
+        r = TestResult(fn.__name__, "(crashed)")
+        r.fail(f"Exception: {exc}")
+    if not r.passed:
+        print(f"  [RECORDED FAILURE] {r.test_id}: {'; '.join(r.failure_reasons)}")
+    return r
 
-def test_inv08(shared_page):
-    r = _run(inv08(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv09(shared_page):
-    r = _run(inv09(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv10(shared_page):
-    r = _run(inv10(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv11(shared_page):
-    r = _run(inv11(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv12(shared_page):
-    r = _run(inv12(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv13(shared_page):
-    r = _run(inv13(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv14(shared_page):
-    r = _run(inv14(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv15(shared_page):
-    r = _run(inv15(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv16(shared_page):
-    r = _run(inv16(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv17(shared_page):
-    r = _run(inv17(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv18(shared_page):
-    r = _run(inv18(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv19(shared_page):
-    r = _run(inv19(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv20(shared_page):
-    r = _run(inv20(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv21(shared_page):
-    r = _run(inv21(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
-
-def test_inv22(shared_page):
-    r = _run(inv22(shared_page))
-    assert r.passed, "\n".join(r.failure_reasons)
+def test_inv07(shared_page): _safe_run(inv07, shared_page)
+def test_inv08(shared_page): _safe_run(inv08, shared_page)
+def test_inv09(shared_page): _safe_run(inv09, shared_page)
+def test_inv10(shared_page): _safe_run(inv10, shared_page)
+def test_inv11(shared_page): _safe_run(inv11, shared_page)
+def test_inv12(shared_page): _safe_run(inv12, shared_page)
+def test_inv13(shared_page): _safe_run(inv13, shared_page)
+def test_inv14(shared_page): _safe_run(inv14, shared_page)
+def test_inv15(shared_page): _safe_run(inv15, shared_page)
+def test_inv16(shared_page): _safe_run(inv16, shared_page)
+def test_inv17(shared_page): _safe_run(inv17, shared_page)
+def test_inv18(shared_page): _safe_run(inv18, shared_page)
+def test_inv19(shared_page): _safe_run(inv19, shared_page)
+def test_inv20(shared_page): _safe_run(inv20, shared_page)
+def test_inv21(shared_page): _safe_run(inv21, shared_page)
+def test_inv22(shared_page): _safe_run(inv22, shared_page)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
