@@ -12,8 +12,8 @@ VALID_PASSWORD = "Tuesday19@@@@"
 LOGIN_URL = ("https://dw1qa.b2clogin.com/dw1qa.onmicrosoft.com/b2c_1_qa_signin/oauth2/v2.0/authorize?client_id=d7d76a18-ff69-445b-8c0e-e3c2d441ae0a&redirect_uri=https%3A%2F%2Fqa.wasteapplications.com%2FAccount%2FLogin&response_type=code%20id_token&scope=openid%20profile%20https%3A%2F%2Fdw1qa.onmicrosoft.com%2F0170418f-5650-4a29-b1e2-ebf4a97954c3%2FAPI.Access&response_mode=form_post")
 BASE_URL = "https://qa.wasteapplications.com"
 
-KNOWN_JOBSITE = {"id": "1627", "name": "Test Jobsite QA", "customer": "1627", "tax_rate": 9.0}
-KNOWN_VENDOR  = {"id": "16321", "name": "Lake City Hauling", "status": "Active", "street": "1402 E Best Ave", "city": "Coeur D Alene", "state": "ID", "zip": "83814", "phone": "2089641910"}
+KNOWN_JOBSITE = {"id": "11821", "name": "Walmart Supercenter #2265", "customer": "11821", "tax_rate": 9.0}
+KNOWN_VENDOR  = {"id": "16337", "name": "Recology Peninsula Services", "status": "Active", "street": "PO Box 848268", "city": "Los Angeles", "state": "CA", "zip": "90084", "phone": "6505830000"}
 
 def new_jobsite():
     return {"name": f"Automation Jobsite {datetime.now().strftime('%H%M%S')}", "customer": "1627", "street": fake.street_address(), "city": fake.city(), "state": fake.state_abbr(), "zip": fake.zipcode()[:5]}

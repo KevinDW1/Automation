@@ -29,7 +29,7 @@ DATE_START = TODAY.replace(day=1).strftime("%m/%d/%Y")
 DATE_END   = TODAY.strftime("%m/%d/%Y")
 
 # Known test jobsite with equipment on it
-KNOWN_JOBSITE_ID = "1627"
+KNOWN_JOBSITE_ID = "11821"
 
 # Equipment Management page tiles and their nav paths
 EQUIP_TILES = {
