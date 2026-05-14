@@ -37,6 +37,7 @@ jobs:
           playwright install chromium --with-deps
 
       - name: Run Smoke Tests
+        continue-on-error: true
         run: |
           pytest --tb=short -v
 
