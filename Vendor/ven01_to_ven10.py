@@ -63,6 +63,17 @@ def _run(coro):
 
 def _safe_run(fn, shared_page):
     try:
+        r = _run(fn(shared_page))
+    except Exception as exc:
+        r = TestResult(fn.__name__, "(crashed)")
+        r.fail("Exception: " + str(exc))
+    if not r.passed:
+        print("  [RECORDED FAILURE] " + r.test_id + ": " + "; ".join(r.failure_reasons))
+    return r
+
+
+def _safe_run(fn, shared_page):
+    try:
         loop = asyncio.get_event_loop()
         r = loop.run_until_complete(fn(shared_page))
     except Exception as exc:
