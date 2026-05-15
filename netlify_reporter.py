@@ -1,13 +1,5 @@
 """
 netlify_reporter.py — Shared utility to push pytest results to Netlify Blobs.
-
-Usage in any test file:
-    from netlify_reporter import push_results
-
-    # After collecting results, call:
-    push_results(BLOB_KEY, results_dict)
-
-    Where results_dict maps test IDs to { "status": "passed"|"failed"|"none", "notes": "..." }
 """
 
 import os
@@ -15,29 +7,13 @@ import json
 import requests
 from datetime import datetime, timezone
 
-# Your Netlify site ID — set as NETLIFY_SITE_ID in GitHub Secrets
 SITE_ID = os.environ.get("NETLIFY_SITE_ID", "")
-
-# Netlify personal access token — set as NETLIFY_TOKEN in GitHub Secrets
-TOKEN = os.environ.get("NETLIFY_TOKEN", "")
-
-NETLIFY_BLOBS_URL = "https://api.netlify.com/api/v1/blobs/{site_id}/{key}"
+TOKEN   = os.environ.get("NETLIFY_TOKEN", "")
 
 
 def push_results(blob_key: str, results: dict) -> bool:
-    """
-    Push test results to Netlify Blobs.
-
-    Args:
-        blob_key: The blob key used by the HTML page (e.g. 'jobsites-qa-results')
-        results:  Dict mapping test IDs to { status, notes }
-                  e.g. { "CUS-02": { "status": "passed", "notes": "" }, ... }
-
-    Returns:
-        True if saved to cloud, False if failed.
-    """
     if not SITE_ID or not TOKEN:
-        print("[netlify_reporter] ⚠  NETLIFY_SITE_ID or NETLIFY_TOKEN not set — skipping cloud push.")
+        print("[netlify_reporter] ⚠  NETLIFY_SITE_ID or NETLIFY_TOKEN not set — skipping.")
         return False
 
     payload = {
@@ -46,42 +22,70 @@ def push_results(blob_key: str, results: dict) -> bool:
         "source": "github-actions",
     }
 
-    url = NETLIFY_BLOBS_URL.format(site_id=SITE_ID, key=blob_key)
+    # Step 1: get a signed upload URL from Netlify
+    sign_url = f"https://api.netlify.com/api/v1/sites/{SITE_ID}/blobs/{blob_key}"
+    print(f"[netlify_reporter] Requesting signed URL: {sign_url}")
 
     try:
-        resp = requests.put(
-            url,
-            headers={
-                "Authorization": f"Bearer {TOKEN}",
-                "Content-Type": "application/json",
-            },
-            json=payload,
+        sign_resp = requests.get(
+            sign_url,
+            headers={"Authorization": f"Bearer {TOKEN}"},
+            params={"sign": "true"},
             timeout=15,
         )
-        if resp.ok:
-            print(f"[netlify_reporter] ✅  Results pushed to Netlify Blobs → {blob_key}")
-            return True
+        print(f"[netlify_reporter] Sign response: {sign_resp.status_code} {sign_resp.text[:300]}")
+
+        if sign_resp.ok:
+            signed = sign_resp.json()
+            upload_url = signed.get("url")
+            if not upload_url:
+                # Some versions return the data directly — try direct PUT
+                raise ValueError("No signed URL returned, trying direct PUT")
+
+            # Step 2: upload to the signed URL
+            up_resp = requests.put(
+                upload_url,
+                data=json.dumps(payload),
+                headers={"Content-Type": "application/json"},
+                timeout=15,
+            )
+            if up_resp.ok:
+                print(f"[netlify_reporter] ✅  Results pushed → {blob_key}")
+                return True
+            else:
+                print(f"[netlify_reporter] ❌  Upload failed: {up_resp.status_code} {up_resp.text[:200]}")
+                return False
         else:
-            print(f"[netlify_reporter] ❌  Netlify Blobs returned {resp.status_code}: {resp.text}")
-            return False
+            # Try direct PUT as fallback
+            raise ValueError(f"Sign request failed: {sign_resp.status_code}")
+
     except Exception as exc:
-        print(f"[netlify_reporter] ❌  Failed to push results: {exc}")
-        return False
+        print(f"[netlify_reporter] Trying direct PUT fallback: {exc}")
+        # Fallback: direct PUT to the API endpoint
+        try:
+            put_url = f"https://api.netlify.com/api/v1/sites/{SITE_ID}/blobs/{blob_key}"
+            resp = requests.put(
+                put_url,
+                headers={
+                    "Authorization": f"Bearer {TOKEN}",
+                    "Content-Type": "application/json",
+                },
+                data=json.dumps(payload),
+                timeout=15,
+            )
+            print(f"[netlify_reporter] Direct PUT: {resp.status_code} {resp.text[:300]}")
+            if resp.ok:
+                print(f"[netlify_reporter] ✅  Results pushed → {blob_key}")
+                return True
+            else:
+                print(f"[netlify_reporter] ❌  Direct PUT failed: {resp.status_code}")
+                return False
+        except Exception as exc2:
+            print(f"[netlify_reporter] ❌  All methods failed: {exc2}")
+            return False
 
 
 def build_results_from_pytest(test_map: dict, passed_ids: list, failed_ids: list, notes_map: dict = None) -> dict:
-    """
-    Helper to build the results dict from pytest pass/fail lists.
-
-    Args:
-        test_map:    Dict of all test IDs (keys) — used to initialise 'none' for untested
-        passed_ids:  List of test IDs that passed
-        failed_ids:  List of test IDs that failed
-        notes_map:   Optional dict of { test_id: "note string" }
-
-    Returns:
-        results dict ready for push_results()
-    """
     notes = notes_map or {}
     results = {}
     for test_id in test_map:
