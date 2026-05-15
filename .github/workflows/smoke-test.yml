@@ -36,6 +36,9 @@ jobs:
         run: |
           playwright install chromium --with-deps
 
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
       - name: Run Smoke Tests
         continue-on-error: true
         run: |
